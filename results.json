@@ -1,0 +1,32 @@
+{
+  "question": "Under the same evaluation budget, can a multi-objective VNS that learns online which neighborhood to try next return a better-hypervolume trade-off set than a fixed-order multi-objective VNS on simulated bi-objective obnoxious p-median instances?",
+  "method": "Seeded simulated Euclidean instances (100 sites, p=10); tuning on uniform instances, final test on shifted clustered instances. Objectives (assumed): max sum of client distances to nearest chosen facility, max min distance between chosen facilities. Normalised hypervolume of final archive, 3 seeds, paired tests over test instances.",
+  "dataset": {
+    "name": "Simulated bi-objective obnoxious p-median instances",
+    "source_url": "generated in script with numpy (no download)",
+    "n_rows": 40,
+    "n_train": 30,
+    "n_test": 10,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "normalised hypervolume of final archive (test instances)",
+  "higher_is_better": true,
+  "baseline": "Standard multi-objective VNS with fixed neighborhood order (restart at first neighborhood on archive improvement, else next) and non-dominated archive.",
+  "improved": "Same neighborhoods, archive and evaluation budget, but the next neighborhood is drawn by probability matching on archive-improvement rewards with per-instance state.",
+  "metrics": {
+    "baseline_score": 0.3918481326099544,
+    "improved_score": 0.4042020956572667,
+    "baseline_score_std": 0.014700161574261265,
+    "improved_score_std": 0.014844044165324989,
+    "improvement": 0.012353963047312344,
+    "baseline_archive_size": 20.266666666666666,
+    "improved_archive_size": 21.266666666666666,
+    "improved_win_rate": 0.8,
+    "paired_ttest_p": 0.2503380625072992,
+    "paired_wilcoxon_p": 0.431640625,
+    "chosen_alpha": 0.1,
+    "chosen_pmin": 0.05
+  },
+  "notes": "Objectives are assumed, not from the abstract. Instances (not rows) are the units; hypervolume is normalised per instance using the union of all compared fronts on that instance (reference = per-objective minimum). Only the adaptive learning rate/min probability were tuned, on tuning instances (the baseline has no hyper-parameters); the parameter score is a mean over independent tuning instances, as no model is fitted. Neighborhoods are random k-swap shakes followed by random swap local search; this is not the paper's parallel algorithm. p-values use per-instance seed-averaged HV (n=10) and are only indicative."
+}
